@@ -1,0 +1,89 @@
+/* ============================
+   AJUSTES PÁGINA PAINEL (ID 8)
+   ============================ */
+
+/* Compacta espaçamentos do tema */
+.page-id-8 .wp-site-blocks {
+  padding-top: 0 !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  padding-bottom: 0 !important;
+  background: transparent !important;   /* evita fundo branco extra */
+  box-shadow: none !important;
+}
+
+.page-id-8 main,
+.page-id-8 .entry-content {
+  margin-top: 0 !important;
+}
+
+/* Esconde só o título da página */
+.page-id-8 .wp-block-post-title {
+  display: none !important;
+}
+
+/* ============================
+   FUNDO DIFERENCIADO
+   ============================ */
+
+/* Fundo da área central da fatura */
+.page-id-8 main,
+.page-id-8 .entry-content,
+.page-id-8 .wp-site-blocks {
+  background-color: #f6f7fb !important;
+}
+
+/* Header sempre branco */
+header, 
+.af-header, 
+.site-header {
+  background: #ffffff !important;
+}
+
+/* Footer já vem com fundo escuro (#0b1326) definido no bloco custom HTML */
+
+/* ============================
+   ADMIN TOOLS RESPONSIVO
+   ============================ */
+.page-id-8 .admin-tools-af select {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+@media (max-width: 720px){
+  .page-id-8 .admin-tools-af { width: 100%; }
+  .page-id-8 .admin-tools-af select { flex: 1; }
+}
+
+/* ============================
+   ÍCONES SOCIAIS
+   ============================ */
+
+/* Remove bordas/brilhos dos ícones */
+.atf-social a i {
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #ffffff;            /* mantém ícones brancos */
+  font-size: 28px;           /* tamanho padrão */
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.atf-social a:hover i {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Ocultar admin bar no frontend */
+#wpadminbar {
+  display: none !important;
+}
+
+/* Ajusta o deslocamento que o WP coloca no body */
+html {
+  margin-top: 0 !important;
+}
+
