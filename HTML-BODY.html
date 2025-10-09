@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Assistente Financeiro TI</title>
+    <style>
+        :root {
+            --brand: #4b55b6;
+            --ok: #14a44d;
+            --info: #0ea5e9;
+            --text: #0f172a;
+            --muted: #475569;
+            --card: #fff;
+            --bg: #f6f7fb;
+            --border: #e5e7eb
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        .wrap-af {
+            max-width: 100%;
+            margin: 4px auto;
+            padding: 4px 6px;
+            background: var(--bg);
+            color: var(--text);
+            font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif
+        }
+
+        .wrap-af * {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important
+        }
+
+        /* Cabeçalho */
+        .header-af.center {
+            text-align: center;
+            margin: 10px 0 6px
+        }
+
+/* Título do cliente (como “Suporte Assessoria Tech”) */
+.client-af.big{
+  font-size: 32px;   /* era 22px */
+  font-weight: 800;
+}
+
+/* CNPJ/CPF logo abaixo do título */
+.client-sub{
+  color: var(--muted);
+  margin-top: 2px;
+  font-size: 16px;   /* era 13px */
+}
+
+/* Texto “miúdo” – usamos na Observação Geral */
+.sm{ 
+  font-size: 14px;   /* era 12.5px */
+}
+
+/* (opcional) ajuste fino só do conteúdo da observação */
+#obsGeral{ font-size: 14px; line-height: 1.5; }
+
+
+        /* Painel */
+        .panel-af {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+            overflow: hidden
+        }
+
+        .bar-af {
+            background: var(--brand);
+            height: 6px
+        }
+
+        .content-af {
+            padding: 14px
+        }
+
+        /* Toolbar */
+        .toolbar-af {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 8px 0
+        }
+
+        .controls-af {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .btn-af {
+            border: 0;
+            background: var(--brand);
+            color: #fff;
+            padding: 8px 11px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(75, 85, 182, .28);
+            transition: .2s;
+            font-size: 13px
+        }
+
+        .btn-af.ghost {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+
+        .btn-af.primary {
+            background: #5865f2;
+            border-color: #5865f2
+        }
+
+        /* Cards KPI */
+        .cards-af {
+            display: grid;
+            gap: 10px;
+            margin: 10px 0 6px;
+            grid-template-columns: repeat(6, 1fr)
+        }
+
+        @media (max-width:1200px) {
+            .cards-af {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        @media (max-width:720px) {
+            .cards-af {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width:500px) {
+            .cards-af {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card-af {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px
+        }
+
+        .card-af .k {
+            color: var(--muted);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: .08em
+        }
+
+        .card-af .v {
+            font-size: 18px;
+            font-weight: 800;
+            margin-top: 2px
+        }
+
+        /* Total do mês com fundo sólido */
+        .card-af.total-af {
+            background: #e1e2f6;
+            border: 1px solid #e1e2f6;
+            box-shadow: 0 6px 18px rgba(88, 101, 242, .08)
+        }
+
+        .card-af.total-af .k {
+            color: #2b2f44;
+            font-weight: 800
+        }
+
+        .card-af.total-af .v {
+            font-size: 20px
+        }
+
+        /* Tabela */
+        .table-af {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 6px
+        }
+
+        .table-af th,
+        .table-af td {
+            border-bottom: 1px solid var(--border);
+            padding: 10px 8px;
+            text-align: left;
+            background: #fff;
+            vertical-align: top
+        }
+
+        .table-af th {
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            background: #fafafa
+        }
+
+        .table-af td {
+            font-size: 13px
+        }
+
+        .table-af tr:last-child td {
+            border-bottom: 0
+        }
+
+        .table-af .desc-af {
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: 4px;
+            line-height: 1.35;
+        }
+
+        .badge-af {
+            font-weight: 700;
+            font-size: 10.5px;
+            border-radius: 999px;
+            padding: 5px 8px;
+            color: #fff;
+            display: inline-block
+        }
+
+        .badge-af.pendente {
+            background: var(--info)
+        }
+
+        .badge-af.pago {
+            background: var(--ok)
+        }
+
+        .badge-af.flag {
+            background: #6b7280
+        }
+
+        /* Observação */
+        .note-af {
+            margin-top: 8px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px
+        }
+
+        small.muted {
+            color: var(--muted)
+        }
+
+       
+
+        @media print {
+
+            .toolbar-af,
+            .af-modal {
+                display: none !important
+            }
+
+            .panel-af {
+                box-shadow: none;
+                border: 0
+            }
+
+            body {
+                background: #fff
+            }
+        }
+
+        /* ===== MODAIS ===== */
+        .af-modal {
+            position: fixed !important;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100000;
+            display: none;
+            align-items: center;
+            justify-content: center
+        }
+
+        .af-modal__backdrop {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, .55)
+        }
+
+        .af-modal__dialog {
+            position: relative;
+            margin: auto;
+            width: min(860px, 92vw);
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+            display: flex;
+            flex-direction: column
+        }
+
+        .af-modal__header {
+            background: #4b55b6;
+            color: #fff;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .af-modal__header.af-danger {
+            background: #e74c3c
+        }
+
+        .af-modal__header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700
+        }
+
+        .af-modal__close {
+            background: transparent;
+            border: 0;
+            color: #fff;
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 0 6px
+        }
+
+        .af-modal__body {
+            padding: 18px 20px 4px 20px;
+            background: #fff
+        }
+
+        .af-modal__footer {
+            padding: 12px 20px 20px 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            align-items: center;
+            background: #fafbff;
+            border-top: 1px solid #eef0ff
+        }
+
+        .af-form-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: 1fr 1fr
+        }
+
+        @media (max-width:720px) {
+            .af-form-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .af-field label {
+            display: block;
+            font-weight: 600;
+            margin: 0 0 4px;
+            color: #353a55;
+            font-size: 13px;
+            line-height: 1.2
+        }
+
+        .af-field input,
+        .af-field select,
+        .af-field textarea {
+            width: 100%;
+            border: 1px solid #dfe3f7;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 13.5px;
+            outline: none;
+            background: #fff;
+            transition: border-color .15s, box-shadow .15s
+        }
+
+        .af-field input:focus,
+        .af-field select:focus,
+        .af-field textarea:focus {
+            border-color: #7e84ff;
+            box-shadow: 0 0 0 3px rgba(126, 132, 255, .18)
+        }
+
+        .af-radio-list label {
+            display: block;
+            font-size: 13px;
+            margin: 6px 0;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            user-select: none
+        }
+
+        .af-radio-list label:hover {
+            background: #fafafa
+        }
+
+        .af-radio-list input {
+            margin-right: 8px
+        }
+
+        .af-modal__lead {
+            margin: 0 0 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827
+        }
+
+        /* trava scroll ao abrir modal */
+        body.af-modal-open {
+            overflow: hidden
+        }
+
+        /* ===== Modal Gerenciar Anexos – layout novo ===== */
+        /* força os campos de upload em 1 coluna */
+        #modalAttachManage .af-form-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        /* bloco "arquivos atuais" com cabeçalhos alinhados */
+        #modalAttachManage #am_current {
+            font-size: 13.5px !important;
+            color: #353a55;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        #modalAttachManage .af-attach-current .head {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            color: #4b55b6;
+            /* mesma cor do cabeçalho */
+            margin-bottom: 8px;
+        }
+
+        #modalAttachManage .af-attach-current .line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+        }
+
+        #modalAttachManage .af-attach-current .title {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        #modalAttachManage .af-attach-current .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        #modalAttachManage .af-attach-current .actions a {
+            text-decoration: underline;
+        }
+
+        /* divisor clarinho entre a lista atual e os inputs */
+        #modalAttachManage .af-divider {
+            border: 0;
+            height: 1px;
+            background: #eef0ff;
+            /* bem clarinho */
+            margin: 10px 0 8px 0;
+        }
+
+        /* só um respiro extra nos campos */
+        #modalAttachManage .af-field {
+            margin-top: 6px;
+        }
+
+        #modalAttachManage .af-field>label {
+            color: #4b55b6;
+            /* mesma cor do header do modal */
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body> <!-- META (ajuste os valores abaixo de acordo com seus arquivos em /data/) -->
+    <div id="client-id" data-client="suporte-assessoria" data-name="Suporte Assessoria Tech" data-cnpj="00000000000000"
+        style="display:none"></div> <!-- Para ver outros clientes, deixe data-admin="1" e liste os ids disponíveis -->
+    <div id="af-admin" data-admin="1"
+        data-clients='[ {"id":"suporte-assessoria","name":"Suporte Assessoria Tech"}, {"id":"contatoassessoriat...com","name":"contato@assessoriat..."} ]'
+        style="display:none"></div>
+    <div class="wrap-af"> <!-- Cabeçalho -->
+        <div class="header-af center">
+            <div id="clientLine" class="client-af big">Carregando…</div>
+            <div id="clientSub" class="client-sub" style="display:none"></div>
+        </div> <!-- Painel -->
+        <div class="panel-af">
+            <div class="bar-af"></div>
+            <div class="content-af"> <!-- Toolbar -->
+                <div class="toolbar-af">
+                    <div class="controls-af"> <input id="q" type="text"
+                            placeholder="Buscar fornecedor, categoria ou descrição…" oninput="AF_render()" /> <input
+                            id="mesFiltro" type="month" onchange="AF_render()" /> <select id="filterCategoria"
+                            onchange="AF_onCatChange()">
+                            <option value="">Todas as categorias</option>
+                        </select> </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap"> <button class="btn-af"
+                            onclick="window.print()">Imprimir / Salvar PDF</button> <button id="btnAdd"
+                            class="btn-af ghost" style="display:none" onclick="AF_openAdd()">Adicionar cobrança</button>
+                    </div> <!-- Ferramentas do admin -->
+                    <div id="adminTools" class="admin-tools-af" style="display:none;gap:8px;align-items:center;">
+                        <select id="clientSwitch" title="Escolher cliente"></select> <button class="btn-af ghost"
+                            onclick="AF_switchClient()">Ver fatura de cliente</button> </div>
+                </div> <!-- KPIs -->
+                <div class="cards-af">
+                    <div class="card-af">
+                        <div class="k">Mensal recorrente</div>
+                        <div class="v" id="kMensal">R$ 0,00</div>
+                    </div>
+                    <div class="card-af">
+                        <div class="k">Anual recorrente</div>
+                        <div class="v" id="kAnual">R$ 0,00</div>
+                    </div>
+                    <div class="card-af">
+                        <div class="k">Despesa única (mês)</div>
+                        <div class="v" id="kUnico">R$ 0,00</div>
+                    </div>
+                    <div class="card-af">
+                        <div class="k">Trimestral (mês)</div>
+                        <div class="v" id="kTrimestral">R$ 0,00</div>
+                    </div>
+                    <div class="card-af">
+                        <div class="k">Semestral (mês)</div>
+                        <div class="v" id="kSemestral">R$ 0,00</div>
+                    </div>
+                    <div class="card-af total-af">
+                        <div class="k">TOTAL DO MÊS</div>
+                        <div class="v" id="kTotal">R$ 0,00</div>
+                    </div>
+                </div> <!-- Tabela -->
+                <table class="table-af" id="tbl">
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Fornecedor</th>
+                            <th>Tipo</th>
+                            <th>Frequência</th>
+                            <th>Vencimento</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Anexos</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="muted sm">Total da listagem</td>
+                            <td id="ftTotal" class="sm">R$ 0,00</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table> <!-- Observação -->
+                <div class="note-af">
+   <small class="muted sm">Observação geral:</small>
+    <div id="obsGeral" class="sm">
+      Este painel é informativo. Em caso de divergências, contate a Assessoria Tech.
+   </div>
+        </div>
+
+        </div>
+    </div> <!-- Modais (iguais aos que você já usa) --> <!-- Adicionar -->
+    <div id="modalAF" class="af-modal">
+        <div class="af-modal__backdrop" data-af-close></div>
+        <div class="af-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="afAddTitle">
+            <div class="af-modal__header">
+                <h3 id="afAddTitle">Adicionar cobrança</h3> <button class="af-modal__close" type="button" title="Fechar"
+                    data-af-close>×</button>
+            </div>
+            <div class="af-modal__body">
+                <div class="af-form-grid">
+                    <div class="af-field"><label for="f_categoria">Categoria</label><input id="f_categoria" type="text"
+                            placeholder="Categoria (ex.: Sistemas)"></div>
+                    <div class="af-field"><label for="f_fornecedor">Fornecedor</label><input id="f_fornecedor"
+                            type="text" placeholder="Fornecedor"></div>
+                    <div class="af-field"><label for="f_tipo">Método de pagamento</label><input id="f_tipo" type="text"
+                            placeholder="PIX/Boleto/Dinheiro/Cartão de Crédito"></div>
+                    <div class="af-field"> <label for="f_freq_type">Recorrência</label> <select id="f_freq_type">
+                            <option value="mensal">Mensal</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="semestral">Semestral</option>
+                            <option value="anual">Anual</option>
+                            <option value="unico">Único</option>
+                        </select> </div>
+                    <div class="af-field" data-af-show="mensal trimestral semestral anual unico"> <label
+                            for="f_start">Data de vencimento (início)</label> <input id="f_start" type="date"
+                            placeholder="dd/mm/aaaa"> </div>
+                    <div class="af-field"><label for="f_valor">Valor</label><input id="f_valor" type="number"
+                            step="0.01" inputmode="decimal" placeholder="Valor em reais (ex.: 199.90)"></div>
+                    <div class="af-field" style="grid-column:1/-1"><label for="f_desc">Descrição</label><textarea
+                            id="f_desc" rows="3" placeholder="Descrição"></textarea></div>
+                    <div class="af-field" style="grid-column:1/-1"><small class="af-note">Obs.: salvar exige o token
+                            (mesmo do arquivo <code>faturas.php</code>).</small></div>
+                </div>
+            </div>
+            <div class="af-modal__footer"> <button type="button" class="btn-af ghost" data-af-close>Cancelar</button>
+                <button type="button" class="btn-af ghost" onclick="AF_ensureToken()">Definir token</button> <button
+                    type="button" class="btn-af primary" onclick="AF_submitAdd()">Salvar cobrança</button> </div>
+        </div>
+    </div> <!-- Gerenciar anexos -->
+    <div id="modalAttachManage" class="af-modal">
+        <div class="af-modal__backdrop" data-af-close></div>
+        <div class="af-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="amTitle">
+            <div class="af-modal__header" style="background:#4b55b6">
+                <h3 id="amTitle">Gerenciar anexos</h3> <button class="af-modal__close" type="button" title="Fechar"
+                    data-af-close>×</button>
+            </div>
+            <div class="af-modal__body">
+                <div class="af-form-grid"> <!-- Cabeçalho da lista de anexos -->
+                    <div class="af-field" style="grid-column:1/-1"> <label>Arquivos anexados</label>
+                        <div id="am_current"></div>
+                    </div> <!-- Inputs para novos anexos -->
+                    <div class="af-field"> <label for="am_nf">Nota fiscal (PDF/Imagem) <span
+                                class="af-attach-hint">(máx. 5MB)</span></label> <input id="am_nf" type="file"
+                            accept=".pdf,image/*"> </div>
+                    <div class="af-field"> <label for="am_boleto">Boleto / Pix (PDF/Imagem) <span
+                                class="af-attach-hint">(máx. 5MB)</span></label> <input id="am_boleto" type="file"
+                            accept=".pdf,image/*"> </div>
+                    <div class="af-field"> <label for="am_comprovante">Comprovante (PDF/Imagem) <span
+                                class="af-attach-hint">(máx. 5MB)</span></label> <input id="am_comprovante" type="file"
+                            accept=".pdf,image/*"> </div>
+                </div>
+            </div>
+            <div class="af-modal__footer"> <button type="button" class="btn-af ghost" data-af-close>Cancelar</button>
+                <button type="button" class="btn-af primary" onclick="AF_submitAttachManage()">Salvar anexos</button>
+            </div>
+        </div>
+    </div> <!-- Baixar anexo -->
+    <div id="modalAttachDownload" class="af-modal">
+        <div class="af-modal__backdrop" data-af-close></div>
+        <div class="af-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="adTitle">
+            <div class="af-modal__header" style="background:#4b55b6">
+                <h3 id="adTitle">Baixar anexo</h3> <button class="af-modal__close" type="button" title="Fechar"
+                    data-af-close>×</button>
+            </div>
+            <div class="af-modal__body">
+                <h3 class="af-modal__lead">Escolha o arquivo:</h3>
+                <div class="af-radio-list" id="ad_options"></div>
+            </div>
+            <div class="af-modal__footer"> <button type="button" class="btn-af ghost" data-af-close>Cancelar</button>
+                <button type="button" class="btn-af primary" onclick="AF_confirmAttachDownload()">Baixar</button> </div>
+        </div>
+    </div> <!-- Use caminho ABSOLUTO para não dar 404 -->
+    <script src="/wp-content/uploads/assistente-financeiro-ti.js?v=13"></script>
+</body>
+
+</html>

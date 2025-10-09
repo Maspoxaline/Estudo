@@ -1,0 +1,154 @@
+<!-- ===== Cabeçalho personalizado – Assessoria Tech ===== -->
+<header class="af-header">
+  <div class="af-wrap">
+    <!-- LOGO -->
+    <a class="af-logo" href="https://assessoriatech.com/">
+      <img
+        src="https://assessoriatecnologia.com/wp-content/uploads/logo-assessoria-tech.png"
+        alt="Assessoria Tech"
+        loading="eager"
+        height="50"
+      />
+      <span class="af-sr-only">Assessoria Tech</span>
+    </a>
+
+    <!-- MENU -->
+    <nav class="af-nav" aria-label="Menu principal">
+      <ul>
+        <li><a href="https://assessoriatech.com/">Home</a></li>
+        <li><a href="https://assessoriatech.com/servicos">Serviços</a></li>
+        <li><a href="https://assessoriatech.com/suporte">Suporte</a></li>
+        <li><a href="https://assessoriatech.com/contato">Contato</a></li>
+        <li><a href="https://assessoriatecnologia.com/assistente-financeiro-ti/">Assistente da TI</a></li>
+        <li><a href="https://assessoriatech.com/privacy-policy">Política de Privacidade</a></li>
+      </ul>
+    </nav>
+
+    <!-- REDES SOCIAIS -->
+    <div class="af-social" aria-label="Redes sociais">
+      <a href="https://www.facebook.com/people/Assessoria-Tech/61558580072534/" target="_blank" rel="noopener" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com/assessoria.tech/" target="_blank" rel="noopener" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.linkedin.com/company/assessoria-tech/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="mailto:contato@assessoriatech.com" aria-label="E-mail">
+        <i class="fas fa-envelope"></i>
+      </a>
+      <a href="https://wa.me/+5566992108932" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Font Awesome para os ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  /* Cores pedidas */
+  :root {
+    --af-brand: #4d12b2;
+    --af-brand-hover: #5761b3;
+  }
+
+  /* Container */
+  .af-header {
+    background: #fff;
+    border-bottom: 1px solid #ececec;
+  }
+
+  .af-header .af-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  /* LOGO (garante que apareça e não “quebre”) */
+  .af-header .af-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none !important;
+    border: 0 !important;
+    outline: none !important;
+  }
+  .af-header .af-logo img {
+    display: block;
+    height: 46px;    /* ajuste fino aqui se quiser maior/menor */
+    width: auto;
+  }
+  .af-sr-only {
+    position: absolute;
+    left: -9999px;
+  }
+
+  /* NAV */
+  .af-header .af-nav {
+    flex: 1 1 auto;                 /* ocupa o meio */
+    display: flex;
+    justify-content: center;
+  }
+
+  .af-header .af-nav ul {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .af-header .af-nav a {
+    text-decoration: none !important;  /* remove sublinhado do tema */
+    color: var(--af-brand) !important; /* força a cor */
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1;
+    border: 0 !important;
+    transition: color .2s ease;
+  }
+  .af-header .af-nav a:hover {
+    color: var(--af-brand-hover) !important;
+  }
+
+  /* REDES */
+  .af-header .af-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .af-header .af-social a {
+    font-size: 22px;                 /* tamanho igual ao modelo */
+    line-height: 1;
+    color: var(--af-brand) !important;
+    text-decoration: none !important;
+    border: 0 !important;
+    transition: color .2s ease;
+  }
+  .af-header .af-social a:hover {
+    color: var(--af-brand-hover) !important;
+  }
+
+  /* Responsivo: quebra em 2 linhas quando necessário */
+  @media (max-width: 980px) {
+    .af-header .af-wrap {
+      flex-wrap: wrap;
+      gap: 12px 20px;
+    }
+    .af-header .af-nav {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+    }
+    .af-header .af-social {
+      order: 2;
+      margin-left: auto;
+    }
+  }
+</style>
